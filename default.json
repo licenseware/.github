@@ -41,17 +41,18 @@
       "semanticCommitType": "build"
     },
     {
-      "description": "Use feat(deps-security) for vulnerability fixes",
-      "matchPackageNames": ["*"],
-      "isVulnerabilityAlert": true,
-      "semanticCommitType": "feat",
-      "semanticCommitScope": "deps-security"
-    },
-    {
-      "description": "Group all non-major updates into one PR",
+      "description": "Group all non-major updates into one PR (vulnerability alerts opt out via top-level vulnerabilityAlerts)",
       "matchUpdateTypes": ["minor", "patch", "digest"],
       "groupName": "non-major dependencies",
       "groupSlug": "non-major-deps"
     }
-  ]
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "groupName": null,
+    "groupSlug": null,
+    "schedule": [],
+    "semanticCommitType": "feat",
+    "semanticCommitScope": "deps-security"
+  }
 }
