@@ -34,7 +34,24 @@
       "automerge": true,
       "automergeStrategy": "rebase",
       "matchUpdateTypes": ["patch", "pin", "lockFileMaintenance", "digest"]
+    },
+    {
+      "description": "Use build(deps) for all updates (overrides :semanticPrefixFixDepsChoreOthers)",
+      "matchPackageNames": ["*"],
+      "semanticCommitType": "build"
+    },
+    {
+      "description": "Use feat(deps-security) for vulnerability fixes",
+      "matchPackageNames": ["*"],
+      "isVulnerabilityAlert": true,
+      "semanticCommitType": "feat",
+      "semanticCommitScope": "deps-security"
+    },
+    {
+      "description": "Group all non-major updates into one PR",
+      "matchUpdateTypes": ["minor", "patch", "digest"],
+      "groupName": "non-major dependencies",
+      "groupSlug": "non-major-deps"
     }
-  ],
-  "timezone": "Europe/Bucharest"
+  ]
 }
