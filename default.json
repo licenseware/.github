@@ -47,6 +47,7 @@
       "groupSlug": "non-major-deps"
     }
   ],
+  "rebaseWhen": "conflicted",
   "vulnerabilityAlerts": {
     "enabled": true,
     "groupName": null,
