@@ -14,9 +14,10 @@
     ":rebaseStalePrs",
     ":configMigration",
     ":separateMultipleMajorReleases",
-    ":maintainLockFilesWeekly",
-    ":prConcurrentLimit10"
+    ":maintainLockFilesWeekly"
   ],
+  "prHourlyLimit": 0,
+  "prConcurrentLimit": 20,
   "customManagers": [
     {
       "customType": "regex",
