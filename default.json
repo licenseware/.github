@@ -48,6 +48,7 @@
     }
   ],
   "rebaseWhen": "conflicted",
+  "minimumReleaseAge": "14 days",
   "vulnerabilityAlerts": {
     "enabled": true,
     "groupName": null,
