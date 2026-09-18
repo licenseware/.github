@@ -1,4 +1,58 @@
 repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v6.0.0
+    hooks:
+      - id: check-added-large-files
+        args: ["--maxkb=800"]
+        exclude: |
+          (?x)^(
+          )$
+      - id: check-ast
+      - id: check-executables-have-shebangs
+      - id: check-json
+      - id: check-shebang-scripts-are-executable
+      - id: check-yaml
+        args:
+          - --allow-multiple-documents
+      - id: detect-private-key
+        exclude: |
+          (?x)^(
+          )$
+      - id: detect-aws-credentials
+        args:
+          - --allow-missing-credentials
+      - id: end-of-file-fixer
+        exclude: |
+          (?x)^(
+          )$
+      - id: check-builtin-literals
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-merge-conflict
+      - id: check-symlinks
+      - id: check-toml
+      - id: check-vcs-permalinks
+      - id: check-xml
+      - id: debug-statements
+      - id: destroyed-symlinks
+      - id: file-contents-sorter
+      - id: fix-byte-order-marker
+      - id: forbid-new-submodules
+      - id: forbid-submodules
+      - id: mixed-line-ending
+      - id: name-tests-test
+      - id: requirements-txt-fixer
+      - id: sort-simple-yaml
+      - id: trailing-whitespace
+        exclude: |
+          (?x)^(
+          )$
+      - id: pretty-format-json
+        args:
+          - --autofix
+        exclude: |
+          (?x)^(
+          )$
   - repo: https://github.com/renovatebot/pre-commit-hooks
     rev: 44.101.2
     hooks:
