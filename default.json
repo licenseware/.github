@@ -30,6 +30,7 @@
     ":maintainLockFilesWeekly"
   ],
   "minimumReleaseAge": "14 days",
+  "osvVulnerabilityAlerts": true,
   "packageRules": [
     {
       "automerge": false,
