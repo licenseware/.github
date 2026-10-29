@@ -69,6 +69,6 @@
     "groupSlug": null,
     "schedule": [],
     "semanticCommitScope": "deps-security",
-    "semanticCommitType": "feat"
+    "semanticCommitType": "fix"
   }
 }
