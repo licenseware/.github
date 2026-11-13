@@ -17,7 +17,7 @@
       "customType": "regex",
       "datasourceTemplate": "docker",
       "depTypeTemplate": "manifest-image",
-      "description": "# renovate: docker=<image> above image: <image>:<tag> in YAML. The first pattern finds the annotated line, the second reads the image reference inside it, so that a digest can be written next to the tag",
+      "description": "# renovate: docker=<image> above image: <image>:<tag> in YAML. The first pattern finds the annotated line, the second reads the image reference inside it, so that a digest can be written next to the tag.",
       "managerFilePatterns": [
         "/\\.ya?ml$/"
       ],
@@ -97,6 +97,21 @@
         "custom.regex"
       ],
       "pinDigests": true
+    },
+    {
+      "description": "In workflow and compose files the native manager already reads image: lines. An annotation there would put two managers on one line, and the digest would be written twice",
+      "enabled": false,
+      "matchDepTypes": [
+        "manifest-image"
+      ],
+      "matchFileNames": [
+        "/(^|/)(workflow-templates|\\.(?:github|gitea|forgejo)/(?:workflows|actions))/.+\\.ya?ml$/",
+        "/(^|/)action\\.ya?ml$/",
+        "/(^|/)(?:docker-)?compose[^/]*\\.ya?ml$/"
+      ],
+      "matchManagers": [
+        "custom.regex"
+      ]
     },
     {
       "description": "Images we build move by tag on every build and by image automation, never pin them",
