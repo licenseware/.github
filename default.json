@@ -8,9 +8,25 @@
         "^.*$"
       ],
       "matchStrings": [
-        "\\s*#\\s?renovate: (?<datasource>.*?)=(?<depName>.*?)(\\s+versioning=(?<versioning>.*?))?\\s+[\\w+\\.\\-]+(?:[:=]|\\s+\\S+)\\s*[\\\"']?(?<currentValue>[\\w+\\.\\-]*)(?:@(?<currentDigest>sha256:[a-f0-9]+))?[\\\"']?"
+        "\\s*#\\s?renovate: (?<datasource>.*?)=(?<depName>.*?)(\\s+versioning=(?<versioning>.*?))?\\s+[\\w+\\.\\-]+(?:[:=]|\\s+\\S+)\\s*[\\\"']?(?<currentValue>[\\w+\\.\\-]*)(?:@(?<currentDigest>sha256:[a-f0-9]+))?[\\\"']?(?:\\s|$)"
       ],
       "versioningTemplate": "{{#if (equals datasource 'docker')}}docker{{else if versioning}}{{{versioning}}}{{else}}semver{{/if}}"
+    },
+    {
+      "autoReplaceStringTemplate": "{{{depName}}}:{{{newValue}}}{{#if newDigest}}@{{{newDigest}}}{{/if}}",
+      "customType": "regex",
+      "datasourceTemplate": "docker",
+      "depTypeTemplate": "manifest-image",
+      "description": "# renovate: docker=<image> above image: <image>:<tag> in YAML. The first pattern finds the annotated line, the second reads the image reference inside it, so that a digest can be written next to the tag",
+      "managerFilePatterns": [
+        "/\\.ya?ml$/"
+      ],
+      "matchStrings": [
+        "#\\s?renovate: docker=\\S+(?:\\s+versioning=(?<versioning>\\S+))?\\s+image:\\s*\\S+",
+        "(?<depName>[^\\s:@\"']+):(?<currentValue>[\\w.\\-]+)(?:@(?<currentDigest>sha256:[a-f0-9]+))?"
+      ],
+      "matchStringsStrategy": "recursive",
+      "versioningTemplate": "{{#if versioning}}{{{versioning}}}{{else}}docker{{/if}}"
     }
   ],
   "extends": [
@@ -58,6 +74,51 @@
         "patch",
         "digest"
       ]
+    },
+    {
+      "description": "Pin third-party container images to digests in Dockerfiles, compose files, workflow services and kustomize image transformers",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchManagers": [
+        "dockerfile",
+        "docker-compose",
+        "github-actions",
+        "kustomize"
+      ],
+      "pinDigests": true
+    },
+    {
+      "description": "Pin third-party container images to digests on annotated image: lines in manifests",
+      "matchDepTypes": [
+        "manifest-image"
+      ],
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "pinDigests": true
+    },
+    {
+      "description": "Images we build move by tag on every build and by image automation, never pin them",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchPackageNames": [
+        "ghcr.io/licenseware/**",
+        "licenseware/**"
+      ],
+      "pinDigests": false
+    },
+    {
+      "description": "Pinning or refreshing the digest of a tag we already pull adds no new release, so the release-age cooldown does not apply",
+      "matchDatasources": [
+        "docker"
+      ],
+      "matchUpdateTypes": [
+        "pinDigest",
+        "digest"
+      ],
+      "minimumReleaseAge": null
     }
   ],
   "prConcurrentLimit": 20,
